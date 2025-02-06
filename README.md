@@ -5,6 +5,7 @@ CREATE TABLE Pracownicy (
     nazwisko      VARCHAR(50) NOT NULL,
     pesel         VARCHAR(20) NOT NULL UNIQUE
 );
+
 CREATE TABLE Pracownicy_Zlecenia (
     id_pracownika       INT PRIMARY KEY,
     adres               VARCHAR(200) NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE Pracownicy_Zlecenia (
          FOREIGN KEY (id_pracownika)
          REFERENCES Pracownicy(id_pracownika)
 );
+
 CREATE TABLE Klienci (
     id_klienta     INT IDENTITY(1,1) PRIMARY KEY,
     imie           VARCHAR(50) NOT NULL,
@@ -20,6 +22,7 @@ CREATE TABLE Klienci (
     adres          VARCHAR(200) NOT NULL,
     pesel          VARCHAR(20) NOT NULL,
 );
+
 CREATE TABLE Przypisania_Klienci_Pracownicy (
     id_klienta   INT NOT NULL,
     id_pracownika INT NOT NULL,
