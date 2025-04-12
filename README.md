@@ -69,3 +69,44 @@ namespace EShop.Application.Services
         }
     }
 }
+
+
+
+
+
+
+using EShop.Application.Services;
+using Xunit;
+
+namespace EShop.Application.Tests.Services
+{
+    public class CreditCardServiceTests
+    {
+        private readonly CreditCardService _service = new CreditCardService();
+
+        [Theory]
+        [InlineData("4532 2080 2150 4434", true)]
+        [InlineData("5530016454538418", true)]
+        [InlineData("3497 7965 8312 797", true)]
+        [InlineData("0000 0000 0000 0000", false)]
+        [InlineData("1234-5678-1234-5670", false)]
+        public void ValidateCard_ShouldReturnCorrectValidity(string cardNumber, bool expectedValid)
+        {
+            var result = _service.Validate(cardNumber);
+            Assert.Equal(expectedValid, result.IsValid);
+        }
+
+        [Theory]
+        [InlineData("4532289052809181", "Visa")]
+        [InlineData("5530016454538418", "MasterCard")]
+        [InlineData("378523393817437", "American Express")]
+        [InlineData("6011111111111117", "Discover")]
+        [InlineData("3528000700000000", "JCB")]
+        public void GetCardType_ShouldReturnCorrectType(string cardNumber, string expectedType)
+        {
+            var type = _service.GetCardType(cardNumber);
+            Assert.Equal(expectedType, type);
+        }
+    }
+}
+
